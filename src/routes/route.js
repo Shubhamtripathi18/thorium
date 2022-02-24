@@ -1,84 +1,71 @@
+
 const express = require('express');
+
 const router = express.Router();
 
-//router.get('/test-me', function (req, res) {
-  //  res.send('My first ever api!')
-//});
-
-//router.get('', function(req,res){
-  //  res.send('Server Working Properly')
-//});
-    
-router.get('/movies', function(req,res) {
-    const movies = ['the game', 'shawshank', 'special26', 'Wanted'] ;
-        res.send(movies) ;    
+router.get('/test-me', function (req, res) {
+    res.send('My first ever api!')
 });
+router.post('/functionUp',function(req,res){
+    res.send("this is new route")     
+}) 
 
-router.get('/movies/:number', function(req,res) {
-    const movies  = ['the game', 'shawshank', 'special26', 'Wanted'] ;
-    const movie = req.params.number
-    if(movie >= movies.length){
-        res.send('Invalid Index')
-    } else {
-    res.send(movies[movie])
+// localhost:3000/query?votingage=18
+
+let people=[
+    {
+        name: "NP",
+        age: 57,
+        votingStatus: false
+     },
+     
+
+    {
+        name: "SS",
+        age: 15,
+        votingStatus: false
+     },
+     
+
+    {
+        name: "IG",
+        age: 46,
+        votingStatus: false
+     },
+     
+
+    {
+        name: "AP",
+        age: 3,
+        votingStatus: false
+     },
+     
+
+    {
+        name: "SB",
+        age: 19,
+        votingStatus: false
     }
-});
+    
+]
+let eligiblePeople=[]
+    router.post("/query",function(req,res){
+    // let person = req.body
+    // console.log(person)
+    // people.push(person)
+    // res.send(people)
 
-router.get('/films', function(req,res){
-    const films = [ {
-        "id" : 1,
-        "name" : "Shaadi Mein Zaroor Aana"
-       }, {
-        "id": 2,
-        "name" : "Soun Ki Titu Ki Sweety"
-       }, {
-        "id": 3,
-        "name" : "Hum Aapke Hain Koun"
-       }, {
-        "id": 4,
-        "name": "M.S. Dhoni: The Untold Story"
-       }]
-       
-       res.send(films)
-
-});
-
-
-router.get('/films/:filmId', function(req,res){
-    const films = [ {
-        "id" : 1,
-        "name" : "Shaadi Mein Zaroor Aana"
-       }, {
-        "id": 2,
-        "name" : "Soun Ki Titu Ki Sweety"
-       }, {
-        "id": 3,
-        "name" : "Hum Aapke Hain Koun"
-       }, {
-        "id": 4,
-        "name": "M.S. Dhoni: The Untold Story"
-       }]
-
-       const filmId = req.params.filmId
-    //    let found = false;
-    //    for(let i=0; i<films.length;i++){
-    //        if(films[i].id == filmId){
-    //            found = true
-    //            res.send(films[i])
-    //        }
-    //    }
-
-        console.log(filmId)
-
-       for(let i=0; i<films.length; i++) {
-          if(films[i].id == filmId){
-           res.send(films[i].name)
-           return 
-          } 
+    let input =req.query.votingAge
+    for(let i=0; i<people.length; i++){
+        if(people[i].age>input){
+            people[i].votingStatus=true
+            eligiblePeople.push(people[i])
         }
-        
-        res.send('No movie exists with this id')
-        
-});
+    }
+   
+    res.send({result: eligiblePeople, status: true})
+    
+})
+
 
 module.exports = router;
