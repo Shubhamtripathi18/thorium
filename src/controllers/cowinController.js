@@ -1,6 +1,8 @@
 let axios = require("axios")
 
 
+// https://cdn-api.co-vin.in/api - Production Server
+
 let getStates = async function (req, res) {
 
     try {
@@ -18,6 +20,9 @@ let getStates = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+
+
+
 
 
 let getDistricts = async function (req, res) {
